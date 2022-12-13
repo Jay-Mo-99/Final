@@ -1,11 +1,15 @@
 /*
 * Filename: 		exam.cpp
-* Project:			exam.cpp
+* Project:			exam
 * Programmer:		Jay Mo
 * Date:     		December 13, 2022
-* Description:  	This program uses File Input Option and Phone Number Pointer Option.
+* Description:  	This program reads the pin numbers of the file.
+					It verifies that the numbers are in the correct format,and outputs the numbers of valid pin and invalid.
+					This program uses File Input Option, Phone Number Pointer Option and Console Output Option.
 
 */
+
+
 
 #pragma warning(disable:4996)
 #include <stdio.h>
@@ -23,7 +27,7 @@ int main(int argc,char *argv[])
 	char* realname;
 
 	//Open the file for get the pin name
-	fp1 = fopen("pin.out", "rt");
+	fp1 = fopen("pin.out.txt", "rt");
 	if (fp1 == NULL)
 	{
 		printf("Error : Can't open file.");
@@ -32,9 +36,8 @@ int main(int argc,char *argv[])
 
 	for(int i = 0;i < 21;i++)
 	{
-		fgets(name[i], sizeof(name[i]), fp1);
+		while(fgets(name[i], sizeof(name[i]), fp1) == NULL);
 		realname = strtok(name[i],"\n");
-		printf("The pin number : %s\n", name[i]);
 	}
 
 	//close the text file
@@ -46,8 +49,7 @@ int main(int argc,char *argv[])
 	
 	//command line arguments
 	int argNum = 1;
-	printf("The command line contents:\n");
-	printf("Command : %s\n", argv[0]);
+
 	for (argNum = 1;argNum < argc;argNum++)
 	{
 		printf("Arg #%d : %s\n", argNum, argv[argNum]);
@@ -64,22 +66,21 @@ int main(int argc,char *argv[])
 		if (validatePIN(name[i]) == 1)
 		{
 			validNumber++;
-			printf("%d in %d : ", i,validatePIN(name[i]));
 			printf("%s matched the format\n", name[i]);
 		}
 		else
 		{
 			invalidNumber++;
-			printf("%d in %d : ", i, validatePIN(name[i]));
 			printf("%s did not match the format\n", name[i]);
 		}
-		
-		printf("Wendy's: valid: %d, invalid: %d", validNumber, invalidNumber);
+
 	}
 
+	printf("Wendy's: valid: %d, invalid: %d", validNumber, invalidNumber);
 
 	return 0;
 }
+
 
 
 /*
@@ -92,6 +93,7 @@ int main(int argc,char *argv[])
 * RETURNS : return 1, when the pin number has the right format. The other returns 0
 
 */
+
 
 
 int validatePIN(char *pinNumber)
