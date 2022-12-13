@@ -12,7 +12,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(void)
+int validatePIN(char pinNumber);
+
+int main(int argc,char *argv[])
 {
 	const int size = 254;
 	FILE* fp1;
@@ -28,8 +30,6 @@ int main(void)
 		return 0;
 	}
 
-
-
 	for(int i = 0;i < 21;i++)
 	{
 		fgets(name[i], sizeof(name[i]), fp1);
@@ -37,5 +37,40 @@ int main(void)
 		printf("The pin number : %s\n", name[i]);
 	}
 
+	//close the text file
+	if (fclose(fp1) != 0)
+	{
+		printf("Error: Can't close the file");
+		return 0;
+	}
+	
+	//command line arguments
+	int argNum = 1;
+	printf("The command line contents:\n");
+	printf("Command : %s\n", argv[0]);
+	for (argNum = 1;argNum < argc;argNum++)
+	{
+		printf("Arg #%d : %s\n", argNum, argv[argNum]);
+	}
+	
+	return 0;
+}
 
+
+/*
+* FUNCTION :  validatePIN
+*
+* DESCRIPTION : This function checks the pin number has the right format.  
+*
+* PARAMETERS : char pinNumber
+*
+* RETURNS : int number
+
+*/
+
+
+int validatePIN(char pinNumber)
+{
+	printf("The valid format is ### ### ###.\n");
+	return 0;
 }
