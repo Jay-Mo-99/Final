@@ -3,7 +3,7 @@
 * Project:			exam.cpp
 * Programmer:		Jay Mo
 * Date:     		December 13, 2022
-* Description:  	This program uses File Input Option and Array Option.
+* Description:  	This program uses File Input Option and Phone Number Pointer Option.
 
 */
 
@@ -16,14 +16,14 @@ int validatePIN(char *pinNumber);
 
 int main(int argc,char *argv[])
 {
-	const int size = 254;
+	const int size = 21;
 	FILE* fp1;
 	char name[21][size];
 	int numRead = 0;
 	char* realname;
 
 	//Open the file for get the pin name
-	fp1 = fopen("pinName.txt", "rt");
+	fp1 = fopen("pin.out", "rt");
 	if (fp1 == NULL)
 	{
 		printf("Error : Can't open file.");
@@ -55,15 +55,26 @@ int main(int argc,char *argv[])
 
 	//valid the pin number
 
-	for (int i = 0;i < 21;i++)
+	int validNumber = 0;
+	int invalidNumber = 0;
+	
+	for (int i = 0;i < size;i++)
 	{
 		validatePIN(name[i]);
 		if (validatePIN(name[i]) == 1)
 		{
-			printf("%d in %d\n", i,validatePIN(name[i]));
+			validNumber++;
+			printf("%d in %d : ", i,validatePIN(name[i]));
 			printf("%s matched the format\n", name[i]);
 		}
+		else
+		{
+			invalidNumber++;
+			printf("%d in %d : ", i, validatePIN(name[i]));
+			printf("%s did not match the format\n", name[i]);
+		}
 		
+		printf("Wendy's: valid: %d, invalid: %d", validNumber, invalidNumber);
 	}
 
 
