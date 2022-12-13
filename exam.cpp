@@ -3,7 +3,7 @@
 * Project:			exam.cpp
 * Programmer:		Jay Mo
 * Date:     		December 13, 2022
-* Description:  	This program uses File Input Option.
+* Description:  	This program uses File Input Option and Array Option.
 
 */
 
@@ -12,13 +12,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-int validatePIN(char pinNumber);
+int validatePIN(char *pinNumber);
 
 int main(int argc,char *argv[])
 {
 	const int size = 254;
 	FILE* fp1;
-	char name[21][size] = {" "};
+	char name[21][size];
 	int numRead = 0;
 	char* realname;
 
@@ -52,7 +52,21 @@ int main(int argc,char *argv[])
 	{
 		printf("Arg #%d : %s\n", argNum, argv[argNum]);
 	}
-	
+
+	//valid the pin number
+
+	for (int i = 0;i < 21;i++)
+	{
+		validatePIN(name[i]);
+		if (validatePIN(name[i]) == 1)
+		{
+			printf("%d in %d\n", i,validatePIN(name[i]));
+			printf("%s matched the format\n", name[i]);
+		}
+		
+	}
+
+
 	return 0;
 }
 
@@ -64,13 +78,20 @@ int main(int argc,char *argv[])
 *
 * PARAMETERS : char pinNumber
 *
-* RETURNS : int number
+* RETURNS : return 1, when the pin number has the right format. The other returns 0
 
 */
 
 
-int validatePIN(char pinNumber)
+int validatePIN(char *pinNumber)
 {
-	printf("The valid format is ### ### ###.\n");
-	return 0;
+	if (strlen(pinNumber) == 12)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+
 }
